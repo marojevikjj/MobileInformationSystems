@@ -1,4 +1,4 @@
-# untitled
+# Lab exercises for the subject mobile information systems
 
 A new Flutter project.
 
