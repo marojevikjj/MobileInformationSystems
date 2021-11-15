@@ -1,17 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/clothes_answer.dart';
+import './clothes_question.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+   return MyAppState();
+  }
+}
+class MyAppState extends State<MyApp>{
+  // const MyApp({Key? key}) : super(key: key);
+
+  var questions = [
+    {'question': "Select dress type",
+    'answer' : ['Mini' , 'Maxi', 'Midi']},
+    {'question': "Select shoes type",
+      'answer' : ['High heels' , 'Flats', 'Boots']},
+    {'question': "Select accessories",
+      'answer' : ['Necklace' , 'Bracelet', 'Hat']}];
+  var questionIndex = 0;
+
+  void iWasTapped() {
+    setState(() {
+      questionIndex+=1;
+    });
+    print("I was tapped");
+  }
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Clothes app',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,9 +47,24 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.lightBlue,
       ),
-      home: const MyHomePage(title: 'Jovana Marojevikj 181513'),
+      // home: const MyHomePage(title: 'Clothes application'),
+      home: Scaffold(
+          appBar: AppBar(title: const Text("Clothes app")),
+          body: Column(
+            children: [
+              ClothesQuestion(questions[questionIndex]['question'].toString()),
+              // ClothesAnswer(iWasTapped,"Tap me 1"),
+              // ClothesAnswer(iWasTapped,"Tap me 2"),
+              // ClothesAnswer(iWasTapped,"Tap me 3"),
+              ...(questions[questionIndex]['answer'] as List<String>).map(
+                  (answer) {
+                    return ClothesAnswer(iWasTapped,answer);
+                  }
+              )
+            ],
+          )),
     );
   }
 }
